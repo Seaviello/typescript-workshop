@@ -8,6 +8,8 @@
             "dom",
             "es2015"
         ],
+        "allowSyntheticDefaultImports": true,
+        "noImplicitReturns": true,
         "jsx": "react"
     }
 }
