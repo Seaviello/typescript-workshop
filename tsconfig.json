@@ -6,8 +6,9 @@
         "strict": true,
         "lib": [
             "dom",
-            "es2015"
+            "esnext"
         ],
+        "target": "esnext",
         "allowSyntheticDefaultImports": true,
         "noImplicitReturns": true,
         "jsx": "react"
