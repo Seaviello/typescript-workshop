@@ -32,7 +32,7 @@ let heightAndUnit: [number, string] = [188, "cm"];
 // ERROR: heightAndUnit = ['188', 'cm']
 // ERROR: heightAndUnit = [188, 'c', 'm']
 
-let idMaker = (age: number, name: string) => `${name}${age}`; // inferred string as return value
+let idMaker = (age: number, name: string) => `${name}_${age}`; // inferred string as return value
 idMaker(78, "ABUELA").toLowerCase();
 // ERROR: idMaker('Tomasz', 28).toLowerCase();
 
