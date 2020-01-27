@@ -11,7 +11,6 @@ const boxUnknown = (value: unknown) => ({
 //COMPILE ERROR: boxUnknown('Tomasz').value.toLowerCase();
 //COMPILE ERROR: boxUnknown('Tomasz').value.notExistingProperty();
 
-
 const boxGeneric = <T>(value: T) => ({
   value,
   isObject: typeof value === "object" // T extends object <--- NOT A RUNTIME VARIABLE, JUST A TYPE
@@ -24,12 +23,14 @@ console.log(boxedString.value.toLowerCase()); // tomasz
 const boxedPromise = boxGeneric(Promise.resolve("yasss")); // {value: Promise<string>, isObject: boolean}
 boxedPromise.value.then(resolved => console.log(resolved.toUpperCase())); // 'YASSS'
 
-interface Box<T>{
-  value: T,
-  isObject: boolean,
+interface Box<T> {
+  value: T;
+  isObject: boolean;
 }
 
-const typedBoxedPromise: Box<Promise<string>> = boxGeneric(Promise.resolve('yaaassss'));
+const typedBoxedPromise: Box<Promise<string>> = boxGeneric(
+  Promise.resolve("yaaassss")
+);
 
 // ----------------------------------------keyof-------------------------------------
 
@@ -83,9 +84,9 @@ const jobPosition = getProperty(david, "jobPosition", "freelancer"); // type: st
 // ERROR const wrongJobPosition = getProperty(david, 'jobPosition', 66)
 
 interface Pos {
-  x: number,
-  y: number,
-  z?: number,
+  x: number;
+  y: number;
+  z?: number;
 }
-const dot: Pos = {x: 0, y: 0}
-const z = getProperty(dot, 'z', 0);
+const dot: Pos = { x: 0, y: 0 };
+const z = getProperty(dot, "z", 0);

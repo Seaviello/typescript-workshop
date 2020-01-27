@@ -12,7 +12,6 @@ let name: string = "Tomasz";
 let nullableName: string | null = "Michal";
 nullableName = null;
 // ERROR: name = undefined;
-
 let unstructuredPerson: object; // which means anything except for
 // string, number, bigint, symbol, boolean, undefined or null
 
@@ -51,14 +50,6 @@ enum NamedColor {
   WHITE = "white",
   BLUE = "blue"
 }
-/* Mapped enum to string
-const colorToPaint:  {[key in NamedColor]: string} = {
-  [NamedColor.BLUE]: 'sky blue',
-  [NamedColor.WHITE]: 'pearl white',
-  [NamedColor.RED]: 'ruby red',
-}
-colorToPaint[NamedColor.RED]
-*/
 
 const colorToPaint = (color: NamedColor) => {
   switch (color) {
