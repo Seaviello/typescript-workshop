@@ -1,7 +1,7 @@
 // ----------------------------------------NORMAL-------------------------------------
 let isDone: boolean = false;
 let age: number = 28; // or 28.0
-let bigNumber: bigint = 100n; // or BigInt(100)
+let bigNumber: bigint = BigInt(100);
 let loveSymbol: symbol = Symbol("Love");
 
 let name: string = "Tomasz";

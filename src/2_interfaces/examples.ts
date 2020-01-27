@@ -72,13 +72,13 @@ console.log(ClassyPerson.isEqual(classyDavid, classyDavidSecretAgent)); // true
 
 class SuperClassyPerson extends ClassyPerson {
   height: number;
-  constructor(age: number, height: number, name: string, lastName: string, ) {
+  constructor(age: number, height: number, name: string, lastName: string) {
     super(age, name, lastName);
     this.height = height;
   }
 }
 
-const superClassyDavid = new SuperClassyPerson(33, 188, 'David', 'Davidson')
+const superClassyDavid = new SuperClassyPerson(33, 188, "David", "Davidson");
 
 idMaker(classyDavid); //duck typing
 idMaker(superClassyDavid); //duck typing
