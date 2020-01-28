@@ -59,9 +59,9 @@ const fromArray = flattenedOrUntouched(["tomato", "watermelon", "cat"]);
 const fromNumber = flattenedOrUntouched(11);
 
 type BoxValue<T> = { value: T };
-type Boxed<T> = T extends NonNullable<object> ? T : BoxValue<T>;
+type Boxed<T> = T extends object ? T : BoxValue<T>;
 
-const isObject = <K extends NonNullable<object>>(val: any): val is K =>
+const isObject = <K extends object>(val: any): val is K =>
   val && typeof val === "object";
 
 const boxify = <T extends any>(val: T): Boxed<T> => {
@@ -87,4 +87,4 @@ const getFirstFromArray = <T extends Array<any>>(value: T): Unboxed<T> => {
 const firstString = getFirstFromArray(["tomato", "watermelon", "cat"]); // string
 const retrievedHuman = getFirstFromArray([david]); // Human
 
-export {}
+export {};

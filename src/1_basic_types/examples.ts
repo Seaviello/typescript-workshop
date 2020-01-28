@@ -11,7 +11,7 @@ let name: string = "Tomasz";
 
 let nullableName: string | null = "Michal";
 nullableName = null;
-// ERROR: name = undefined;
+// ERROR: nullableName = undefined;
 let unstructuredPerson: object; // which means anything except for
 // string, number, bigint, symbol, boolean, undefined or null
 
