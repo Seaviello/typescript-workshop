@@ -83,8 +83,6 @@ type ObjectableProps<T extends object> = {
 
 type ObjectProps = ObjectableProps<PaperProps>;
 
-let suits = ["hearts", "spades", "clubs", "diamonds"];
-
 const getResponse = async <T extends object>(response: Promise<T>) => {
   try {
     return await response;

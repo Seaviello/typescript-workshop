@@ -8,7 +8,7 @@ import * as ex5 from "./5_conditional_types/index";
 import * as ex6 from "./6_helper_type_creators/index";
 import App from "./App";
 
-console.log(ex1, ex2, ex3, ex4, ex5);
+console.log(ex1, ex2, ex3, ex4, ex5, ex6);
 
 const rootElement = document.getElementById("root");
 render(<App />, rootElement);

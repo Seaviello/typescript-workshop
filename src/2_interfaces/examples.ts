@@ -79,9 +79,31 @@ class SuperClassyPerson extends ClassyPerson {
 }
 
 const superClassyDavid = new SuperClassyPerson(33, 188, "David", "Davidson");
+const superClassyMichal = new SuperClassyPerson(30, 190, "Michal", "Michalski");
 
 idMaker(classyDavid); //duck typing
 idMaker(superClassyDavid); //duck typing
+
 console.log(ClassyPerson.isEqual(classyDavid, superClassyDavid)); // true
+
+interface Comparer<T> {
+  compare: (a: T, b: T) => number;
+}
+
+let classyPersonComparator: Comparer<ClassyPerson> = {
+  compare: (a, b) => (a.age > b.age ? 1 : a.age < b.age ? -1 : 0)
+};
+let superClassyPersonComparator: Comparer<SuperClassyPerson> = {
+  compare: (a, b) => (a.height > b.height ? 1 : a.height < b.height ? -1 : 0)
+};
+
+// classyPersonComparator = superClassyPersonComparator;  // Error
+console.log(
+  superClassyPersonComparator.compare(superClassyDavid, superClassyMichal)
+); // -1
+superClassyPersonComparator = classyPersonComparator;
+console.log(
+  superClassyPersonComparator.compare(superClassyDavid, superClassyMichal)
+); // 1
 
 export {};
