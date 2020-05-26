@@ -2,12 +2,15 @@
 let isDone: boolean = false;
 let age: number = 28; // or 28.0
 let bigNumber: bigint = BigInt(100);
-let loveSymbol: symbol = Symbol("Love");
+let symbolOfLove: symbol = Symbol("Love");
 
 let name: string = "Tomasz";
 // ERROR: name = 0;
 // ERROR: name = null;
 // ERROR: name = undefined;
+
+symbolOfLove = Symbol('Hate');
+const symbolOfTrueLove: unique symbol = Symbol('True love');
 
 let nullableName: string | null = "Michal";
 nullableName = null;
@@ -18,11 +21,11 @@ let unstructuredPerson: object; // which means anything except for
 unstructuredPerson = { whatever: "nobody cares" };
 unstructuredPerson = ["I", "can", "put", "anything"];
 unstructuredPerson = () => {};
-// ERROR: person = null
-// ERROR: person = 'Tomasz Michal'
+// ERROR: unstructuredPerson = null
+// ERROR: unstructuredPerson = 'Tomasz Michal'
 
 // ----------------------------------------COMPLEX-------------------------------------
-let person: { name: string; age: number };
+let person: { name: string; age: number }; // <-- atypical, use interface
 person = { name, age };
 // ERROR: person = {name: null}
 
@@ -35,9 +38,19 @@ let idMaker = (age: number, name: string) => `${name}_${age}`; // inferred strin
 idMaker(78, "ABUELA").toLowerCase();
 // ERROR: idMaker('Tomasz', 28).toLowerCase();
 
-let explicitIdMaker: (age: number, name: string) => string = (age, name) =>
+let explicitReturnType = (age: number, name: string): string => `${name}_${age}`
+let excplicitWholeFunction: (age: number, name: string) => string = (age, name) =>
   `${name}${age}`;
-// ERROR: let idMaker = (age, name) => `${name}${age}`;
+
+/* 
+const f = (arg: Type) => {...}
+const g = (arg: Type): ReturnT => {...}
+
+type FunType = (arg: Type) => ReturnT;
+const h: FunType = (arg) => {...};
+
+function i (arg: Type): ReturnT {...}
+*/
 
 enum Color {
   RED,
