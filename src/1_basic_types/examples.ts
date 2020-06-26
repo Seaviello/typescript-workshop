@@ -42,7 +42,7 @@ let explicitReturnType = (age: number, name: string): string => `${name}_${age}`
 let excplicitWholeFunction: (age: number, name: string) => string = (age, name) =>
   `${name}${age}`;
 
-/* 
+/*
 const f = (arg: Type) => {...}
 const g = (arg: Type): ReturnT => {...}
 

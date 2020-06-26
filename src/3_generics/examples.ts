@@ -90,3 +90,4 @@ interface Pos {
 }
 const dot: Pos = { x: 0, y: 0 };
 const z = getProperty(dot, "z", 0);
+export {}

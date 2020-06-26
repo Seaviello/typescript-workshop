@@ -5,4 +5,5 @@ import * as task from "./task";
 const mock = () => {
   console.log(examples, solution, task);
 };
+
 export { mock };
