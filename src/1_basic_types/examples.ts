@@ -24,6 +24,7 @@ unstructuredPerson = () => {};
 // ERROR: unstructuredPerson = null
 // ERROR: unstructuredPerson = 'Tomasz Michal'
 
+
 // ----------------------------------------COMPLEX-------------------------------------
 let person: { name: string; age: number }; // <-- atypical, use interface
 person = { name, age };
