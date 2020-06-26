@@ -12,11 +12,12 @@
   },
   "devDependencies": {
     "@types/react": "16.8.8",
-    "@types/react-dom": "16.8.2"
+    "@types/react-dom": "16.8.2",
+    "nodemon": "^2.0.4"
   },
   "scripts": {
     "compile": "tsc --project tsconfig.json",
-    "compileAndRun": "yarn compile && node",
+    "watch": "tsc -w & nodemon",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
