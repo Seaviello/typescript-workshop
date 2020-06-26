@@ -29,6 +29,14 @@ interface WithOptional {
   getRandomNumber(seed?: number, range?: number): number;
 }
 
+interface Optional {
+  something?: string
+}
+
+interface Undefined {
+  something: string | undefined;
+}
+
 // ----------------------------------------TYPES-------------------------------------
 type Age = string | number;
 // type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
