@@ -3,6 +3,7 @@ interface Person {
   age: number;
   readonly name: string;
   jobPosition?: string;
+  callMe?: () => void;
 }
 
 interface PersonIdMaker {
@@ -41,6 +42,30 @@ interface Undefined {
 type Age = string | number;
 // type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 // more dope stuff later
+
+
+// ----------------------------------------TYPES-------------------------------------
+
+interface Node {
+  key: string;
+}
+
+interface Link {
+  next?: Node;
+  previous?: Node;
+}
+
+interface GraphLink extends Node, Link {
+
+}
+/*
+  type GraphLink = Node & Link
+*/
+/* interface GraphLink {
+  next: Node
+} */
+const x: GraphLink = {key: 'now', next: {key: 'next'}, previous: {key: 'prev'}}
+
 
 // ----------------------------------------CLASSES-------------------------------------
 class ClassyPerson /* implements Person */ {
