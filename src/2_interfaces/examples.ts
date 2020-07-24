@@ -6,16 +6,25 @@ interface Person {
   callMe?: () => void;
 }
 
+const doNotTouchMe: readonly string[] = ['Tomasz', 'Kawik'];
+// const doNotTouchMe: ReadonlyArray<string> = ['Tomasz', 'Kawik']; <-- similar, but less powerful
+// ERROR: doNotTouchMe.push()
+
+const iAmTuple: readonly [string, number] = ['Tomasz', 185];
+
+// There is also utility type creato connected with it
+type NotTouchablePerson = Readonly<Person>;
+
 interface PersonIdMaker {
   (person: Person): string;
 }
 
-const david: Person = { age: 54, name: "David" };
+const david: Person = { age: 54, name: 'David' };
 //COMPILE TIME ERROR david.name = 'Tomato'
 
 let idMaker: PersonIdMaker = ({ name, age }) => `${name}_${age}`;
 idMaker(david);
-idMaker({ age: 54, name: "David" });  // duck typying matches Person
+idMaker({ age: 54, name: 'David' }); // duck typying matches Person
 // idMaker({age: 30 }) ERROR not a Person
 // idMaker({age: 30, name: 'David Davidson', firstName: 'David', lastName: 'Davidson'}) ERROR still not a Person, we'll see with generics
 
@@ -31,39 +40,46 @@ interface WithOptional {
 }
 
 interface Optional {
-  something?: string              // Value might or might not be there. Can be also undefined.
+  something?: string; // Value might or might not be there. Can be also undefined.
 }
 
 interface Undefined {
-  something: string | undefined;  // Value must be there, even though it can be undefined.
+  something: string | undefined; // Value must be there, even though it can be undefined.
 }
-
-// in case we want to be able to extend function with additional properties
-
-enum JobType { MANUAL = 'MANUAL', AUTOMATIC = "AUTOMATIC" }
-
-interface FunctionWithProperties {
-  (type: JobType): void,
-  TYPE: typeof JobType
-}
-
-const functionWithProperties: FunctionWithProperties = (type) => {
-  switch (type) {
-    case JobType.AUTOMATIC: /* Doing magic */ return;
-    case JobType.MANUAL: /* Doing magic */ return;
-  }
-};
-functionWithProperties.TYPE = JobType;
-
-functionWithProperties(functionWithProperties.TYPE.AUTOMATIC)
 
 // ----------------------------------------TYPES-------------------------------------
 type Age = string | number;
 // type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+
 // more dope stuff later
 
+// ----------------------------------------TYPES VS INTERFACES-------------------------------------
 
-// ----------------------------------------TYPES-------------------------------------
+// in case we want to be able to extend function with additional properties
+
+enum JobType {
+  MANUAL = 'MANUAL',
+  AUTOMATIC = 'AUTOMATIC'
+}
+
+interface FunctionWithProperties {
+  (type: JobType): void;
+  TYPE: typeof JobType;
+}
+
+const functionWithProperties: FunctionWithProperties = (type) => {
+  switch (type) {
+    case JobType.AUTOMATIC:
+      /* Doing magic */ return;
+    case JobType.MANUAL:
+      /* Doing magic */ return;
+  }
+};
+functionWithProperties.TYPE = JobType;
+
+functionWithProperties(functionWithProperties.TYPE.AUTOMATIC);
+
+type FunctionWithPropertiesType = ((type: JobType) => void) & { TYPE: typeof JobType };
 
 interface Node {
   key: string;
@@ -74,9 +90,7 @@ interface Link {
   previous?: Node;
 }
 
-interface GraphLink extends Node, Link {
-
-}
+interface GraphLink extends Node, Link {}
 
 /*
   type GraphLink = Node & Link
@@ -88,8 +102,11 @@ interface GraphLink extends Node, Link {
   }
 */
 
-const x: GraphLink = {key: 'now', next: {key: 'next'}, previous: {key: 'prev'}}
-
+const link: GraphLink = {
+  key: 'now',
+  next: { key: 'next' },
+  previous: { key: 'prev' }
+};
 
 // ----------------------------------------CLASSES-------------------------------------
 class ClassyPerson /* implements Person */ {
@@ -110,7 +127,7 @@ class ClassyPerson /* implements Person */ {
     return `${this.name} ${this.lastName}`;
   }
   set fullName(full) {
-    const [name, lastName] = full.split(" ");
+    const [name, lastName] = full.split(' ');
     this.name = name;
     this.lastName = lastName;
   }
@@ -118,10 +135,10 @@ class ClassyPerson /* implements Person */ {
   static isEqual = (p1: ClassyPerson, p2: ClassyPerson) => p1.id === p2.id;
 }
 
-const classyDavidSecretAgent = new ClassyPerson(33, "David", "Davidson");
-const classyDavid = new ClassyPerson(33, "David", "Davidson");
+const classyDavidSecretAgent = new ClassyPerson(33, 'David', 'Davidson');
+const classyDavid = new ClassyPerson(33, 'David', 'Davidson');
 console.log(classyDavidSecretAgent.fullName); // 'David Davidson'
-classyDavidSecretAgent.fullName = "Michal Michalski";
+classyDavidSecretAgent.fullName = 'Michal Michalski';
 // ERROR: classyDavidSecretAgent.id
 console.log(classyDavidSecretAgent.name); // 'Michal'
 console.log(classyDavidSecretAgent === classyDavid); // false
@@ -135,8 +152,8 @@ class SuperClassyPerson extends ClassyPerson {
   }
 }
 
-const superClassyDavid = new SuperClassyPerson(33, 188, "David", "Davidson");
-const superClassyMichal = new SuperClassyPerson(30, 190, "Michal", "Michalski");
+const superClassyDavid = new SuperClassyPerson(33, 188, 'David', 'Davidson');
+const superClassyMichal = new SuperClassyPerson(30, 190, 'Michal', 'Michalski');
 
 idMaker(classyDavid); //duck typing
 idMaker(superClassyDavid); //duck typing
@@ -155,12 +172,8 @@ let superClassyPersonComparator: Comparer<SuperClassyPerson> = {
 };
 
 // classyPersonComparator = superClassyPersonComparator;  // Error
-console.log(
-  superClassyPersonComparator.compare(superClassyDavid, superClassyMichal)
-); // -1
+console.log(superClassyPersonComparator.compare(superClassyDavid, superClassyMichal)); // -1
 superClassyPersonComparator = classyPersonComparator;
-console.log(
-  superClassyPersonComparator.compare(superClassyDavid, superClassyMichal)
-); // 1
+console.log(superClassyPersonComparator.compare(superClassyDavid, superClassyMichal)); // 1
 
 export {};

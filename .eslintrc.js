@@ -51,8 +51,8 @@ module.exports = {
   rules: {
     // Place to put our Quin-specific rules
 
-    // Prevent forgotten console.* statements
-
+    // For examples it is better to have this option off
+    'prefer-const': 0,
     'react/prop-types': 0,
 
     'simple-import-sort/sort': 'error',

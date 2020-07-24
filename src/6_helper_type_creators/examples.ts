@@ -2,14 +2,14 @@ interface PaperProps {
   elevation?: number;
   square?: boolean;
   stack: React.ReactNode | null;
-  component?: React.ElementType<any>;
-  variant: "elevation" | "outlined";
+  component?: React.ElementType;
+  variant: 'elevation' | 'outlined';
 }
 
 const paperProps: PaperProps = {
   elevation: 55,
   stack: null,
-  variant: "elevation"
+  variant: 'elevation'
 };
 
 type ReadonlyProps = Readonly<PaperProps>; // {readonly elevation?: number, readonly stack: React.ReactNode ...  }
@@ -40,7 +40,7 @@ type NonNullableProperties<T> = {
 
 type WithoutNullableProps = NonNullableProperties<PaperProps>;
 
-type OnlySome = Pick<PaperProps, "elevation" | "variant">;
+type OnlySome = Pick<PaperProps, 'elevation' | 'variant'>;
 /*
 {
   elevation?: number,
@@ -48,7 +48,7 @@ type OnlySome = Pick<PaperProps, "elevation" | "variant">;
 }
 */
 
-type RemoveSome = Omit<PaperProps, "elevation" | "variant">;
+type RemoveSome = Omit<PaperProps, 'elevation' | 'variant'>;
 /*
  {
   square?: boolean;
@@ -58,14 +58,14 @@ type RemoveSome = Omit<PaperProps, "elevation" | "variant">;
 */
 
 enum NamedColor {
-  RED = "red",
-  WHITE = "white",
-  BLUE = "blue"
+  RED = 'red',
+  WHITE = 'white',
+  BLUE = 'blue'
 }
 const colorToPaint: Record<NamedColor, string> = {
-  [NamedColor.BLUE]: "sky blue",
-  [NamedColor.WHITE]: "pearl white",
-  [NamedColor.RED]: "ruby red"
+  [NamedColor.BLUE]: 'sky blue',
+  [NamedColor.WHITE]: 'pearl white',
+  [NamedColor.RED]: 'ruby red'
 };
 
 type OptionalPropertyOf<T extends object> = Exclude<

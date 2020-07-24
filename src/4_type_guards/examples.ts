@@ -17,17 +17,17 @@ interface Pet extends Animal {
 const david: Person = {
   complain: () => console.log("It's raining again :/"),
   bsn: 66364123,
-  name: "David",
-  dateOfBirth: "23-02-1999"
+  name: 'David',
+  dateOfBirth: '23-02-1999'
 };
 const kitty: Pet = {
-  makeSound: () => console.log("meow"),
-  dateOfBirth: "01-01-2019",
-  name: "Donut"
+  makeSound: () => console.log('meow'),
+  dateOfBirth: '01-01-2019',
+  name: 'Donut'
 };
 
 const forceToMakeSound = (obj: Person | Pet) => {
-  if ("complain" in obj) {
+  if ('complain' in obj) {
     obj.complain(); // Person
   } else {
     obj.makeSound(); // Pet
@@ -38,29 +38,29 @@ forceToMakeSound(kitty); // meow
 
 // Different usage of 'in' operator
 enum NamedColor {
-  RED = "red",
-  WHITE = "white",
-  BLUE = "blue"
+  RED = 'red',
+  WHITE = 'white',
+  BLUE = 'blue'
 }
 const colorToPaint: { [key in NamedColor]: string } = {
-  [NamedColor.BLUE]: "sky blue",
-  [NamedColor.WHITE]: "pearl white",
-  [NamedColor.RED]: "ruby red"
+  [NamedColor.BLUE]: 'sky blue',
+  [NamedColor.WHITE]: 'pearl white',
+  [NamedColor.RED]: 'ruby red'
 };
 console.log(colorToPaint[NamedColor.RED]); // 'ruby red'
 
 const getLength = (maybeHasLength: unknown) => {
   switch (typeof maybeHasLength) {
-    case "boolean":
+    case 'boolean':
       return maybeHasLength ? 1 : 0;
-    case "function":
+    case 'function':
       return maybeHasLength.name.length;
-    case "number":
-    case "bigint":
+    case 'number':
+    case 'bigint':
       return String(maybeHasLength).length;
-    case "object":
+    case 'object':
       return maybeHasLength ? Object.keys(maybeHasLength).length : 0; // sneaky null
-    case "string":
+    case 'string':
       return maybeHasLength.length;
     default:
       return 0;
@@ -68,7 +68,7 @@ const getLength = (maybeHasLength: unknown) => {
 };
 getLength(david);
 getLength(123123);
-getLength(Symbol("love"));
+getLength(Symbol('love'));
 
 class Point {
   constructor(public x: number, public y: number, public z?: number) {}
@@ -79,16 +79,12 @@ const p2 = new Point(-1, 0);
 
 const add = (point1: unknown, point2: unknown) => {
   if (point1 instanceof Point && point2 instanceof Point) {
-    return new Point(
-      point1.x + point2.x,
-      point2.y + point1.y,
-      (point1.z || 0) + (point2.z || 0)
-    );
+    return new Point(point1.x + point2.x, point2.y + point1.y, (point1.z || 0) + (point2.z || 0));
   }
   return new Point(0, 0, 0);
 };
 const p3 = add(p1, p2);
-const p4 = add(p1, "tomato");
+const p4 = add(p1, 'tomato');
 
 // ----------------------------------------is/assert-------------------------------------
 
