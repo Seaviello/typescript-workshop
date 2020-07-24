@@ -1,7 +1,9 @@
 // ----------------------------------------NORMAL-------------------------------------
+import { log } from "../utils";
+
 let isDone: boolean = false;
 let age: number = 28; // or 28.0
-let bigNumber: bigint = BigInt(100);
+let bigNumber: bigint = BigInt(100);    // not that interesting for most of the cases
 let symbolOfLove: symbol = Symbol("Love");
 
 let name: string = "Tomasz";
@@ -9,20 +11,20 @@ let name: string = "Tomasz";
 // ERROR: name = null;
 // ERROR: name = undefined;
 
-symbolOfLove = Symbol('Hate');
-const symbolOfTrueLove: unique symbol = Symbol('True love');
+symbolOfLove = Symbol('Hate');      // type symbol means, that you can still change it's value to another symbol
+const symbolOfTrueLove: unique symbol = Symbol('True love');  // unique symbol, means THAT specific symbol
 
 let nullableName: string | null = "Michal";
 nullableName = null;
 // ERROR: nullableName = undefined;
-let unstructuredPerson: object; // which means anything except for
+let unstructuredPerson: object; // which means everything except for
 // string, number, bigint, symbol, boolean, undefined or null
 
 unstructuredPerson = { whatever: "nobody cares" };
 unstructuredPerson = ["I", "can", "put", "anything"];
 unstructuredPerson = () => {};
-// ERROR: unstructuredPerson = null
-// ERROR: unstructuredPerson = 'Tomasz Michal'
+// ERROR: unstructuredPerson = null             // primitive
+// ERROR: unstructuredPerson = 'Tomasz Michal'  // also primitive, not allowed
 
 
 // ----------------------------------------COMPLEX-------------------------------------
@@ -30,8 +32,8 @@ let person: { name: string; age: number }; // <-- atypical, use interface
 person = { name, age };
 // ERROR: person = {name: null}
 
-let numbers: number[] = [1, 1, 2, 3, 5, 8]; // also Array<number>
-let heightAndUnit: [number, string] = [188, "cm"];
+let numbers: number[] = [1, 1, 2, 3, 5, 8];         // can be used also as Array<number>
+let heightAndUnit: [number, string] = [188, "cm"];  // tuple of specific types
 // ERROR: heightAndUnit = ['188', 'cm']
 // ERROR: heightAndUnit = [188, 'c', 'm']
 
@@ -44,10 +46,11 @@ let excplicitWholeFunction: (age: number, name: string) => string = (age, name) 
   `${name}${age}`;
 
 /*
-const f = (arg: Type) => {...}
-const g = (arg: Type): ReturnT => {...}
+Standard ways to provide type for function
+const f = (arg: Type) => {...}              // inferred return type, good for most of the cases
+const g = (arg: Type): ReturnT => {...}     // explicit return type if we want to narrow down, or make function compliant with some constraints
 
-type FunType = (arg: Type) => ReturnT;
+type FunType = (arg: Type) => ReturnT;      // reusable type for whole function
 const h: FunType = (arg) => {...};
 
 function i (arg: Type): ReturnT {...}

@@ -11,13 +11,13 @@ interface PersonIdMaker {
 }
 
 const david: Person = { age: 54, name: "David" };
-//COMPILE TIME ERROR// david.name = 'Tomato'
+//COMPILE TIME ERROR david.name = 'Tomato'
 
 let idMaker: PersonIdMaker = ({ name, age }) => `${name}_${age}`;
 idMaker(david);
-idMaker({ age: 54, name: "David" }); // duck typying
+idMaker({ age: 54, name: "David" });  // duck typying matches Person
 // idMaker({age: 30 }) ERROR not a Person
-// idMaker({age: 30, name: 'David Davidson', firstName: 'David', lastName: 'Davidson'}) ERROR still not a Person
+// idMaker({age: 30, name: 'David Davidson', firstName: 'David', lastName: 'Davidson'}) ERROR still not a Person, we'll see with generics
 
 /* Possible, but use sparsely */
 interface WithOverload {
@@ -31,12 +31,31 @@ interface WithOptional {
 }
 
 interface Optional {
-  something?: string
+  something?: string              // Value might or might not be there. Can be also undefined.
 }
 
 interface Undefined {
-  something: string | undefined;
+  something: string | undefined;  // Value must be there, even though it can be undefined.
 }
+
+// in case we want to be able to extend function with additional properties
+
+enum JobType { MANUAL = 'MANUAL', AUTOMATIC = "AUTOMATIC" }
+
+interface FunctionWithProperties {
+  (type: JobType): void,
+  TYPE: typeof JobType
+}
+
+const functionWithProperties: FunctionWithProperties = (type) => {
+  switch (type) {
+    case JobType.AUTOMATIC: /* Doing magic */ return;
+    case JobType.MANUAL: /* Doing magic */ return;
+  }
+};
+functionWithProperties.TYPE = JobType;
+
+functionWithProperties(functionWithProperties.TYPE.AUTOMATIC)
 
 // ----------------------------------------TYPES-------------------------------------
 type Age = string | number;
@@ -58,12 +77,17 @@ interface Link {
 interface GraphLink extends Node, Link {
 
 }
+
 /*
   type GraphLink = Node & Link
 */
-/* interface GraphLink {
-  next: Node
-} */
+
+/*
+  interface GraphLink {
+    next: Node
+  }
+*/
+
 const x: GraphLink = {key: 'now', next: {key: 'next'}, previous: {key: 'prev'}}
 
 

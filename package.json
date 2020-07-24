@@ -1,27 +1,47 @@
 {
   "name": "typescript-workshop-test",
   "version": "1.0.0",
+  "license": "",
   "description": "",
   "keywords": [],
-  "main": "src/index.tsx",
   "dependencies": {
-    "react": "16.8.4",
-    "react-dom": "16.8.4",
-    "react-scripts": "2.1.3",
+    "ts-node": "^8.10.2",
     "typescript": "3.7.2"
   },
   "devDependencies": {
+    "@types/node": "^14.0.25",
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.2",
-    "nodemon": "^2.0.4"
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "tsc-watch": "^4.2.9"
   },
   "scripts": {
-    "compile": "tsc --project tsconfig.json",
-    "watch": "tsc -w & nodemon",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "tsc --project tsconfig.json",
+    "lint": "eslint --fix",
+    "watch": "nodemon",
+    "start": "node -r ts-node/register ./src/main.ts",
+    "start:debug": "node --inspect=5858 -r ts-node/register ./src/main.ts"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "yarn start",
+    "ext": "ts"
   },
   "browserslist": [
     ">0.2%",
